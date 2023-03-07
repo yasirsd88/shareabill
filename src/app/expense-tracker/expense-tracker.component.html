@@ -1,0 +1,56 @@
+<div class="container">
+  <h1 class="text-uppercase display-1">Share a bill</h1>
+  <div class="row">
+    <div class="col">
+      <h4 class="display-6 text-uppercase">Add Expense</h4>
+      <form [formGroup]="expenseForm" (ngSubmit)="expenseForm.valid && save()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name:</label>
+          <input type="text" id="name" class="form-control" formControlName="name" name="name" required>
+        </div>
+        <div class="mb-3">
+          <label for="amount" class="form-label">Amount:</label>
+          <input type="number" id="amount" class="form-control" formControlName="amount" name="amount" required>
+        </div>
+        <button type="submit" class="btn btn-outline-primary btn-sm">Add Expense</button>
+        <button class="ms-1 btn btn-outline-danger btn-sm" (click)="getPayout()">Settle Up</button>
+      </form>
+    </div>
+    <div class="col">
+      <h4 class="display-6 text-uppercase">Expenses List</h4>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>Amount</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let expense of expenses">
+            <td>{{ expense.name }}</td>
+            <td>${{ expense.amount }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td>${{ total }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="col" *ngIf="debts.length > 0">
+      <div class="row">
+        <div class="col position-relative">
+          <h4 class="display-6 text-uppercase">Share</h4>
+          <span
+            class="position-absolute badge text-bg-danger border top-0 start-50 translate-middle p-2">${{equalShare.toFixed(2)}}</span>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let debt of debts">Person {{ debt.owed }} owes person {{ debt.owes }}
+            amount ${{ debt.amount.toFixed(2) }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
