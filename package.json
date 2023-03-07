@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "ng serve",
+    "server": "nodemon --watch 'server/**/*.ts' --exec 'ts-node' server/server.ts",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "nodemon --watch 'server/**/*.ts' --exec 'ts-node' server/server.ts",
     "install-all": "npm install"
   },
   "private": true,
